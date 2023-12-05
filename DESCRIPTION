@@ -15,13 +15,14 @@ Imports:
   dplyr,
   ggplot2,
   purrr,
-  tidyr
+  tidyr,
+  vdiffr,
+  shiny
 Suggests: 
     knitr,
     rmarkdown,
     lubridate,
     testthat (>= 3.0.0),
-    vdiffr
 Config/testthat/edition: 3
 Depends: 
     R (>= 2.10)

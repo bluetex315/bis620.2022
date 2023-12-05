@@ -7,6 +7,6 @@
 # * https://testthat.r-lib.org/articles/special-files.html
 
 library(testthat)
-library(bis620.2023)
+library(bis620.2022)
 
-test_check("bis620.2023")
+test_check("bis620.2022")
