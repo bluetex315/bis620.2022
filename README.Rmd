@@ -10,7 +10,9 @@ output: html_document
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/kaneplusplus/bis620.2023/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/kaneplusplus/bis620.2023/actions/workflows/R-CMD-check.yaml)
+[![R-CMD-check](https://github.com/bluetex315/bis620.2022/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/bluetex315/bis620.2022/actions/workflows/R-CMD-check.yaml)
+[![test-coverage](https://github.com/XunyLi37/bis620.2023/actions/workflows/test-coverage.yaml/badge.svg)](https://github.com/XunyLi37/bis620.2023/actions/workflows/test-coverage.yaml)
+
 <!-- badges: end -->
 
 The goal of BIS620.2023 is to create a shiny app that explores relationships between variables in the clinical trail dataset. Functions that explore the phase feature and concurrent feature are all included. More features that allow user to download the app and explore summary statistics, or even interactive plot that allow users to explore the relationships between diagrams are included. 
