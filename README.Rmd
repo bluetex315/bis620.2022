@@ -25,6 +25,20 @@ You can install the development version of bis620.2022 from
 devtools::install_github("bluetex315/bis620.2022")
 ```
 
+## Examples
+This is an example of starting the shiny app from the midterm.
+
+```r
+library(bis620.2022)
+# start_shiny()
+```
+
+Those are the figures created from the functions in the shiny app.
+
+<img src="man/figures/fig1.png" width="100%"/>
+<img src="man/figures/fig2.png" width="100%"/>
+<img src="man/figures/fig3.png" width="100%"/>
+
 ## link to the coverage page and lint results.
 
 <!-- Coverage Page: https://github.com/XunyLi37/bis620.2023/blob/main/.github/workflows/test-coverage.yaml  -->
