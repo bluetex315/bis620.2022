@@ -17,7 +17,8 @@ Imports:
   purrr,
   tidyr,
   vdiffr,
-  shiny
+  shiny,
+  survival
 Suggests: 
     knitr,
     rmarkdown,

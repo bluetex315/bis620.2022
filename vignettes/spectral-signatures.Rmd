@@ -19,6 +19,7 @@ library(bis620.2022)
 library(lubridate)
 library(dplyr)
 library(ggplot2)
+library(survival)
 
 data(accel)
 
