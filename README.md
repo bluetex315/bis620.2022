@@ -1,6 +1,6 @@
 ---
 title: "readme"
-author: "Xuechen"
+author: "Xuechen, Lihui, Richard"
 date: '2023-12-04'
 output: html_document
 ---
