@@ -1,0 +1,73 @@
+---
+title: "Finalproj"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Finalproj}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(bis620.2022)
+library(readr)
+library(dplyr)
+library(tidyr)
+
+data <- adsl %>%
+  full_join(biomark, by = 'SUBJID')
+
+data1 = data
+
+my_func <- function() {
+    
+  # Function to convert a categorical column to numeric
+  convert_to_numeric <- function(column) {
+    # Treat NA or blank values as 'unknown'
+    column[is.na(column) | column == ""] <- "unknown"
+  
+    # Convert the categorical column to a factor and then to numeric
+    as.numeric(factor(column)) - 1  # Subtract 1 to start encoding at 0
+  }
+  
+  # Create dummy variables for 'sex' and 'race', and bind them to the dataset
+  if("sex" %in% names(data)) {
+    sex_dummies <- model.matrix(~ sex - 1, data)
+    colnames(sex_dummies) <- paste("sex", colnames(sex_dummies), sep = "_")
+    data <- bind_cols(data, as.data.frame(sex_dummies))
+    data <- data %>% select(-sex)
+  }
+  
+  if("race" %in% names(data)) {
+    race_dummies <- model.matrix(~ race - 1, data)
+    colnames(race_dummies) <- paste("race", colnames(race_dummies), sep = "_")
+    data <- bind_cols(data, as.data.frame(race_dummies))
+    data <- data %>% select(-race)
+  }
+  
+  # Apply the conversion to all other categorical columns except the specified ones
+  categorical_columns <- sapply(data, is.character)
+  
+  categorical_columns[1] <- FALSE # Assuming the first column is the Subject ID
+  #categorical_columns[20:37] <- FALSE # Exclude columns 20 to 37
+  categorical_columns[20] <- FALSE
+  categorical_columns[22] <- FALSE
+  categorical_columns[24] <- FALSE
+  categorical_columns[26] <- FALSE
+  categorical_columns[28] <- FALSE
+  categorical_columns[30] <- FALSE
+  categorical_columns[32] <- FALSE
+  categorical_columns[34] <- FALSE
+  categorical_columns[36] <- FALSE
+  
+  data[categorical_columns] <- lapply(data[categorical_columns], convert_to_numeric)
+  
+  print("lala")
+}
+```
