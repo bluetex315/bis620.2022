@@ -1,6 +1,11 @@
 ---
-title: "Finalproj"
-output: rmarkdown::html_vignette
+title: "Final Project"
+author:
+  - Lihui Chen
+  - Xuechen Yu
+  - Richard Li (Xuanyou)
+# output: rmarkdown::html_vignette
+output: pdf_document
 vignette: >
   %\VignetteIndexEntry{Finalproj}
   %\VignetteEngine{knitr::rmarkdown}
@@ -13,6 +18,22 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 ```
+
+# 1. Background and Motivation
+Metastatic colorectal cancer (mCRC), which is a significant challenge in oncology, remains something that has a substantial impact on patient morbidity and mortality. Even though there have been a lot of advancements in therapeutic challenges, the prognosis for patients with mCRC is often poor. The selection of first-line therapy is thus a critical determinant of clinical outcomes. 
+
+The management of mCRC has evolved with the introduction of targeted therapies, which aim to improve survival rates and quality of life. Among these, the epidermal growth factor receptor (EGFR) inhibitor panitumumab has shown promise when used in combination with the conventional chemotherapy regimen FOLFOX (a combination of folinic acid, fluorouracil, and oxaliplatin).
+
+The trial, NCT00364013, is a randomized, multicenter, phase 3 study. It was designed to evaluate the efficacy of panitumumab in combination with FOLFOX versus FOLFOX alone as first-line therapy for patients with previously untreated mCRC. This study holds a repository of rich clinical data, including patient demographics, treatment details, response criteria, survival metrics, and adverse events. Such comprehensive data presents an invaluable opportunity for the application of advanced statistical and machine learning models to predict patient outcomes.
+
+The motivation behind utilizing these computational models lies in their ability to investigate complex patterns within the data. It potentially leads to the identification of prognostic variables and the development of predictive models for patient survival. By applying these methodologies, the research can shed light on the multifaceted nature of mCRC progression and response to treatment. Moreover, it strives to enhance the decision-making process in clinical settings, enabling personalized medicine approaches and optimizing therapeutic efficacy.
+
+# 2. Research question
+1. How can robust statistical and machine learning models be developed and validated using the trial dataset to accurately predict mortality in patients with metastatic colorectal cancer (mCRC)?
+
+2. What are the key clinical and treatment-related factors that significantly impact the survival of patients with mCRC, and how can their influence be quantified and incorporated into predictive models for patient survival?
+
+# 3. Data cleaning and exploration
 
 ```{r setup}
 library(bis620.2022)
@@ -71,3 +92,15 @@ my_func <- function() {
   print("lala")
 }
 ```
+
+```{r}
+# Check Package Installation
+library(randomForest)
+library(rpart.plot)
+library(caTools)
+library(caret)
+library(pROC)
+```
+# 4. Analysis
+
+# 5. Interpretation and conclusions

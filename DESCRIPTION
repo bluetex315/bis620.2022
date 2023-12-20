@@ -19,7 +19,12 @@ Imports:
   vdiffr,
   shiny,
   survival,
-  readr
+  readr,
+  randomForest,
+  rpart.plot,
+  caTools,
+  caret,
+  pROC
 Suggests: 
     knitr,
     rmarkdown,
