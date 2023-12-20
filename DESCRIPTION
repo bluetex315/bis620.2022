@@ -18,7 +18,8 @@ Imports:
   tidyr,
   vdiffr,
   shiny,
-  survival
+  survival,
+  readr
 Suggests: 
     knitr,
     rmarkdown,
