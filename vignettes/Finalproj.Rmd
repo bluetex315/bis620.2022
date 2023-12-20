@@ -4,8 +4,8 @@ author:
   - Lihui Chen
   - Xuechen Yu
   - Richard Li (Xuanyou)
-# output: rmarkdown::html_vignette
-output: pdf_document
+output: rmarkdown::html_vignette
+# output: pdf_document
 vignette: >
   %\VignetteIndexEntry{Finalproj}
   %\VignetteEngine{knitr::rmarkdown}
