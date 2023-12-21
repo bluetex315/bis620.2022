@@ -71,6 +71,9 @@ library(pROC)
 ```
 
 ## 4.1 Survival Analysis -- Coxph Model
+
+For our statistical analysis, we first applied Cox proportional hazards model which examines a times-to-event outcome, $t$, as a function of one or more exposure variables, $x_{i}$. In our case, the times-to-event outcome is the days to death of each patient enrolled in this case. For right-censoring patients, days for them to exit the cohort study or lose contact is recorded. We employed the Cox proportional hazards regression model to investigate the influence of clinical and demographic factors on the survival of patients with metastatic colorectal cancer. The relative importance of the variables can be manifested by the magnitude of the relative value of the coefficients in the model. In addition, we consider the predictability of the Cox PH model by calculating its concordance score, which is The model incorporated several variables, including primary tumor site (ATRT), prior surgical history (PRSURG), presence of liver metastases (LIVERMET), age (AGE), sex (SEX), baseline weight (B_WEIGHT), baseline height (B_HEIGHT), baseline Eastern Cooperative Oncology Group performance status (B_ECOG), number of metastatic sites at baseline (B_METANM), and diagnostic type (DIAGTYPE).
+
 ```{r}
 library(survival)
 Model1 = fit_coxph(final_df_clean)
@@ -83,6 +86,8 @@ Model1
 ```
 
 ## 4.2 Machine Learning Model1 -- Logistic Regression
+
+In addition to Cox PH model, we also established a logistic regression model, utilizing a machine learning approach to predict the likelihood of death for a certain patient given his or her clinical trail data. There are in total over 931 people, and we did a train test split to leverage 70% of data for training and the other 30% for testing. This approach prevents the model from overfitting and the test accuracy can objectively manifest the predictability of our model. The same set of parameters as in the Cox PH model were used in the logistic regression.
 
 ```{r}
 library(caTools)
@@ -136,6 +141,8 @@ Model2
 ```
 
 ## 4.3 Machine Learning Model2 -- Random Forest
+
+Our group chose random forest as our last machine learning model. This choice has several reasons: 1. The previous two models (Cox PH and Logistic Regression) are both linear models and based on the assumptions for linear models, such as no significant collinearity, etc. We would like to test whether somehow more complicated machine learning model can outperform the linear models. 2. Although random forest is considered a machine learning model, it still preserves some level of interpretability by looking at the features importance. Since this is a clinical trail on patients with colorectal cancer, we do not simply want to accurately predict the probability of death given a patient's condition through a black box approach, we would like to examine the importance of our features as well, which has clincal significance and provide guidance in the treatment and care for the patients.
 
 ```{r}
 library(randomForest)
@@ -206,3 +213,30 @@ generate_roc_for_two <- function(logistic_roc, rf_roc, logistic_auc, rf_auc){
 generate_roc_for_two(roc_curve, rf_roc_curve, logistic_auc_value, rf_auc_value)
 ```
 # 5. Interpretation and conclusions
+
+## 5.1 Results from Cox PH model
+As shown in the model summary part, the number of metastatic sites at baseline (B_METANM) had the most significant association with survival rate, with a hazard ratio of 1.194 (p < 0.001), which suggests that patients with 1 unit more metastasis were at a 20% higher risk of death. The level of ECOG of a patient, representing the patient’s ability of functioning in their daily life (https://ecog-acrin.org/resources/ecog-performance-status/), was also significant in the Cox PH model. A higher score of ECOG means worse physical mobility and the hazard ratio is of 1.243. It means that with one level higher, the patient's at a 24% higher hazard of death. Prior surgical history (PRSURG) and age (AGE) were also significantly associated with survival, with hazard ratios of 0.7496 and 1.009, respectively. The diagnostic type (DIAGTYPE) in addition a significant relationship with a hazard ratio of 0.79952, suggesting a better situation in rectal cancer compared to colon cancer, which is supported by the study of Lee et. al., 2013 (https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3827090/). 
+
+However, the actual treatment the patient receives, whether to be FOLFOX alone or FOLFOX + Panitumumab (ATRT), did not appear to be a significant factor in predicting the patient's death. The presence of liver metastases (LIVERMET), sex (SEX), and baseline height (B_HEIGHT) were also not significantly associated with survival outcomes in this model
+
+The model's concordance statistic was 0.615, indicating a moderate predictive ability. The likelihood ratio test, Wald test, and Score (logrank) test all yielded highly significant p-values (p < 0.001), confirming that the model as a whole was statistically significant in distinguishing between different survival times of patients.
+
+## 5.2 Results from Logistic Regression
+
+The final model's accuracy on the test set was reported as approximately 74.55%, which indicates a decent ability to correctly classify the outcomes. 
+
+In the analysis of model coefficients, we observed a similar behavior in the Cox PH model but with slight differences in some minor features. In sum, B_ECOG and B_METANM also emerged as significant predictors with p < 0.001. Their positive coefficients suggesting that higher values of these variables increase the log-odds of the death of a patient death. However, the other variables, except for weights, were not significant in the logistic regression model. This may because logistic regression only takes the outcome of patient but ignores the time-to-event, day to death in this case.
+
+We also generated the Receiver Operating Characteristic (ROC) curve and computed Area Under the Curve (AUC) to evaluate the discriminative of our model. For logistic regression, an AUC value of 0.641 suggests that the model has a moderate ability to discriminate between patients with outcome and those without.
+
+## 5.3 Results from Random Forest
+
+We also evaluated the performance of a random forest model and obtained a 66.67% of accuracy in the test data. In comparison to linear models used above, random forest model can capture complex interactions and nonlinear relationships between variables. It also uses bagging strategy i.e. voting from thousands of invididual decision tress to void overfitting.
+
+The variable importance was acquired during the training process of random forest, and it ranks the input variables based on their contribution to the model's predictive power. In our model, the B_ECOG and B_METANM again remained significant among our variables, as indicated by their high Mean Decrease in Accuracy and Gini values. Sex, weight, were also tested important by these two measures, but their actual influence should be further verified.
+
+We also generated ROC curve and computed AUC for random forest, and stacked the plot with logistic regression for easy comparison. A of 0.571 was obtained in random forest, which indicated there is only slight improvement compared to random guess in the random forest model. It also performed worse than logistic regression, which may be attribute to a insufficient tuning of the hyper-parameters. 
+
+# 6. Conclusion
+
+In this panitumumab study, we established three statistical models to investigate their predictability in the patient's death outcome and researched our variables importance through those approaches. Three of our model agreed that the number of metastatis and the level of patient's ability to carry out daily life are sigficant in predicting their death outcome. Yet, other variables such as sex, weight, prior surgery, and cancer type (colon vs rectal), appeared to be significant in some models while lost the significance in others. Their effect should be further and carefully studied.
