@@ -215,6 +215,9 @@ generate_roc_for_two(roc_curve, rf_roc_curve, logistic_auc_value, rf_auc_value)
 # 5. Interpretation and conclusions
 
 ## 5.1 Results from Cox PH model
+```{r}
+print(summary(Model1))
+```
 As shown in the model summary part, the number of metastatic sites at baseline (B_METANM) had the most significant association with survival rate, with a hazard ratio of 1.194 (p < 0.001), which suggests that patients with 1 unit more metastasis were at a 20% higher risk of death. The level of ECOG of a patient, representing the patient’s ability of functioning in their daily life (https://ecog-acrin.org/resources/ecog-performance-status/), was also significant in the Cox PH model. A higher score of ECOG means worse physical mobility and the hazard ratio is of 1.243. It means that with one level higher, the patient's at a 24% higher hazard of death. Prior surgical history (PRSURG) and age (AGE) were also significantly associated with survival, with hazard ratios of 0.7496 and 1.009, respectively. The diagnostic type (DIAGTYPE) in addition a significant relationship with a hazard ratio of 0.79952, suggesting a better situation in rectal cancer compared to colon cancer, which is supported by the study of Lee et. al., 2013 (https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3827090/). 
 
 However, the actual treatment the patient receives, whether to be FOLFOX alone or FOLFOX + Panitumumab (ATRT), did not appear to be a significant factor in predicting the patient's death. The presence of liver metastases (LIVERMET), sex (SEX), and baseline height (B_HEIGHT) were also not significantly associated with survival outcomes in this model
@@ -223,6 +226,9 @@ The model's concordance statistic was 0.615, indicating a moderate predictive ab
 
 ## 5.2 Results from Logistic Regression
 
+```{r}
+print(summary(Model2))
+```
 The final model's accuracy on the test set was reported as approximately 74.55%, which indicates a decent ability to correctly classify the outcomes. 
 
 In the analysis of model coefficients, we observed a similar behavior in the Cox PH model but with slight differences in some minor features. In sum, B_ECOG and B_METANM also emerged as significant predictors with p < 0.001. Their positive coefficients suggesting that higher values of these variables increase the log-odds of the death of a patient death. However, the other variables, except for weights, were not significant in the logistic regression model. This may because logistic regression only takes the outcome of patient but ignores the time-to-event, day to death in this case.
@@ -230,7 +236,9 @@ In the analysis of model coefficients, we observed a similar behavior in the Cox
 We also generated the Receiver Operating Characteristic (ROC) curve and computed Area Under the Curve (AUC) to evaluate the discriminative of our model. For logistic regression, an AUC value of 0.641 suggests that the model has a moderate ability to discriminate between patients with outcome and those without.
 
 ## 5.3 Results from Random Forest
-
+```{r}
+Model3
+```
 We also evaluated the performance of a random forest model and obtained a 66.67% of accuracy in the test data. In comparison to linear models used above, random forest model can capture complex interactions and nonlinear relationships between variables. It also uses bagging strategy i.e. voting from thousands of invididual decision tress to void overfitting.
 
 The variable importance was acquired during the training process of random forest, and it ranks the input variables based on their contribution to the model's predictive power. In our model, the B_ECOG and B_METANM again remained significant among our variables, as indicated by their high Mean Decrease in Accuracy and Gini values. Sex, weight, were also tested important by these two measures, but their actual influence should be further verified.
