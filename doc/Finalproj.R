@@ -26,21 +26,6 @@ my_func <- function(df) {
     as.numeric(factor(column)) - 1  # Subtract 1 to start encoding at 0
   }
   
-  # Create dummy variables for 'sex' and 'race', and bind them to the dataset
-  # if("sex" %in% names(data)) {
-  #   sex_dummies <- model.matrix(~ sex - 1, data)
-  #   colnames(sex_dummies) <- paste("sex", colnames(sex_dummies), sep = "_")
-  #   data <- bind_cols(data, as.data.frame(sex_dummies))
-  #   data <- data %>% select(-sex)
-  # }
-  
-  # if("race" %in% names(data)) {
-  #   race_dummies <- model.matrix(~ race - 1, data)
-  #   colnames(race_dummies) <- paste("race", colnames(race_dummies), sep = "_")
-  #   data <- bind_cols(data, as.data.frame(race_dummies))
-  #   data <- data %>% select(-race)
-  # }
-  
   # Apply the conversion to all other categorical columns except the specified ones
   categorical_columns <- sapply(df, is.character)
   
