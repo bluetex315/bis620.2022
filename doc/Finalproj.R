@@ -103,3 +103,12 @@ generate_roc_for_two <- function(logistic_roc, rf_roc, logistic_auc, rf_auc){
 
 generate_roc_for_two(roc_curve, rf_roc_curve, logistic_auc_value, rf_auc_value)
 
+## -----------------------------------------------------------------------------
+print(summary(Model1))
+
+## -----------------------------------------------------------------------------
+print(summary(Model2))
+
+## -----------------------------------------------------------------------------
+Model3
+
