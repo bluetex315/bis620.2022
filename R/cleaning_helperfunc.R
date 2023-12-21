@@ -13,17 +13,7 @@
 #'          variables of interest and removes rows with any missing values in these
 #'          variables. The function also prints out the number of missing values for
 #'          each variable of interest both before and after the cleaning process.
-#' @examples
-#' df <- data.frame(
-#'   ATRT = c("Yes", "No", "No", NA),
-#'   PRSURG = c("Type1", "Type2", "", "Type1"),
-#'   LIVERMET = c("Yes", NA, "No", "No"),
-#'   AGE = c(45, 50, 60, 30)
-#'   # ... other columns ...
-#' )
-#' cleaned_df <- cleaning_helperfunc(df)
 #' @export
-
 cleaning_helperfunc <- function(df) {
   
   # Function to convert a categorical column to numeric

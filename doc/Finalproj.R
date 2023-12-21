@@ -16,6 +16,8 @@ data <- adsl %>%
 
 final_df_clean = cleaning_helperfunc(data)
 help(cleaning_helperfunc)
+# Description
+# This function performs several cleaning operations on a data frame. It converts categorical columns to numeric, focusing on specific variables of interest, and removes rows with missing values. It also provides a summary of missing values in the specified variables of interest.
 
 ## -----------------------------------------------------------------------------
 head(final_df_clean)
@@ -30,17 +32,11 @@ library(pROC)
 
 ## -----------------------------------------------------------------------------
 library(survival)
-
-fit_coxph <- function(df){
-  Vars = c("ATRT", "PRSURG", "LIVERMET", "AGE", "SEX", "B_WEIGHT", "B_HEIGHT", "RACE", "B_ECOG", "B_METANM", "DIAGTYPE")
-
-  Model <- coxph(Surv(DTHDY, DTH) ~
-                  ATRT + PRSURG + LIVERMET + AGE + SEX + B_WEIGHT + B_HEIGHT + B_ECOG + B_METANM + DIAGTYPE,
-                    data = df)
-  return(Model)
-}
-
 Model1 = fit_coxph(final_df_clean)
+# Description
+# This function fits a Cox Proportional Hazards model to the provided dataset using specified covariates. It is designed to analyze survival data, specifically to model the time until an event of interest (or hazard) occurs.
+
+## -----------------------------------------------------------------------------
 Model1
 
 ## -----------------------------------------------------------------------------
